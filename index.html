@@ -6,15 +6,14 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <!-- use boostrap for modal screen: -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- use 'jQuery UI' for effects (shake, ...) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- use 'jQuery UI' for effects (shake, ...): -->
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-    <script src="js/app.js"></script>
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -30,7 +29,7 @@
             <li><i class="fa fa-star"></i></li>
           </ul>
 
-          <span class="moves">3</span> Moves in <span class="minutes">00</span> minutes <span class="seconds">00</span> seconds
+          <span class="moves">0</span> Moves in <span class="minutes">00</span> minutes <span class="seconds">00</span> seconds
           <div class="restart">
             <i class="fa fa-repeat"></i>
           </div>
@@ -50,15 +49,20 @@
           </div>
           <div class="modal-body">
             <p>Congratulations! You won in <span class="minutes">00</span> minutes and <span class="seconds">00</span> seconds!</p>
-            <p>With <span id="moves">0</span> Moves and <span id="stars">0</span> Stars.</p>
+            <p>With <span class="moves">0</span> Moves and <span id="stars">0</span> Stars.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default restart center-block" data-dismiss="modal">Play again!</button>
+            <button type="button" class="btn btn-primary restart center-block" data-dismiss="modal">Play again!</button>
           </div>
         </div>
       </div>
     </div>
 
+    <!--
+    load javascript at the end of the <body> tag to render the page faster:
+    otherwise the browser will download the script file before rendering the application
+    -->
+    <script src="js/app.js"></script>
 
 </body>
 </html>

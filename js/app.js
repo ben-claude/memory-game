@@ -40,26 +40,24 @@ class Game {
     this.openCards = [];
     this.moves = 0;
     this.stars = 3;
-    this.updateCounters();
     this.totalSeconds = 0;
     this.timerId = 0;
+    this.updateCounters();
+    this.updateTimer();
   }
   updateCounters() {
     $('.moves').text(this.moves);
     const self = this;
     $('.stars').children().each(function(index) {
-      if (index >= self.stars) {
-        $(this).css('visibility', 'hidden');
-      }
+      $(this).css('visibility', index >= self.stars ? 'hidden' : 'visible');
     });
   }
   addMove() {
     ++this.moves;
-    if (this.moves > 24)
-      this.stars = 0;
-    else if (this.moves > 16)
+    const nbCards = this.cards.length;
+    if (this.moves > nbCards)
       this.stars = 1;
-    else if (this.moves > 8)
+    else if (this.moves > (nbCards / 2))
       this.stars = 2;
     this.updateCounters();
   }
@@ -72,7 +70,6 @@ class Game {
     return count === this.cards.length;
   }
   openModal() {
-    $('#moves').text(this.moves);
     $('#stars').text(this.stars);
     $('#finishedModal').modal('toggle');
   }
@@ -84,11 +81,14 @@ class Game {
       return valString;
     }
   }
+  updateTimer() {
+    $('.minutes').text(Game.pad(parseInt(this.totalSeconds / 60)));
+    $('.seconds').text(Game.pad(this.totalSeconds % 60));
+  }
   startTimer() {
     this.timerId = setInterval(() => {
       ++this.totalSeconds;
-      $('.minutes').text(Game.pad(parseInt(this.totalSeconds / 60)));
-      $('.seconds').text(Game.pad(this.totalSeconds % 60));
+      this.updateTimer();
     }, 1000);
   }
   stopTimer() {
@@ -138,6 +138,8 @@ const buildGame = () => {
    *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
    */
   $('.card').click(event => {
+    if (!game.timerId)
+      game.startTimer();
     const idAttr = $(event.currentTarget).attr('id');
     const cardId = Card.getIdFromAttribute(idAttr);
     const card = game.cards[cardId - 1]; // cardId starts at 1
@@ -169,7 +171,6 @@ const buildGame = () => {
       }, 1000);
     }
   });
-  game.startTimer();
   return game;
 };
 
